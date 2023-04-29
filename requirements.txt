@@ -1,7 +1,7 @@
 openai-whisper
 openai
-fastapi
-uvicorn
+django
 ffmpeg
 python-multipart
 aiofiles
+python-decouple
