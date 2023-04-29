@@ -1,0 +1,37 @@
+{% load static %}
+
+<header class="nk-header has-shape">
+    <div class="nk-shape bg-shape-blur-c ms-n20p mt-n20p start-50 translate-middle-x"></div>
+    <div class="nk-header-main nk-menu-main will-shrink has-border ignore-mask">
+       <div class="container">
+          <div class="nk-header-wrap">
+             <div class="nk-header-logo">
+                <a href="#" class="logo-link">
+                   <div class="logo-wrap"><img class="logo-img logo-dark" src="{% static 'images/logo-green-dark.png' %}" srcset="#" alt=""></div>
+                </a>
+             </div>
+             <div class="nk-header-toggle"><button class="btn btn-light btn-icon header-menu-toggle"><em class="icon ni ni-menu"></em></button></div>
+             <nav class="nk-header-menu nk-menu">
+                <ul class="nk-menu-list mx-auto">
+                  
+                   <li class="nk-menu-item"><a href="{% url 'home' %}" class="nk-menu-link"><span class="nk-menu-text">Home</span></a></li>
+                   <li class="nk-menu-item"><a href="{% url 'transcription' %}" class="nk-menu-link"><span class="nk-menu-text">Transcription</span></a></li>
+                   <li class="nk-menu-item"><a href="{% url 'summarizer' %}" class="nk-menu-link"><span class="nk-menu-text">Meeting Summarizer</span></a></li>
+                </ul>
+                <ul class="nk-menu-buttons flex-lg-row-reverse">
+                   <li><a href="#" class="btn btn-primary">Get Started</a></li>
+                   <li class="dropdown">
+                      <a class="link link-base fw-medium dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-offset="0, 12"> English (US) </a>
+                      <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                         <li><a class="dropdown-item link-base py-2 px-4" href="#">Japanese (JP)</a></li>
+                         <li><a class="dropdown-item link-base py-2 px-4" href="#">Chinese (ZS)</a></li>
+                         
+                      </ul>
+                   </li>
+                </ul>
+             </nav>
+          </div>
+       </div>
+    </div>
+
+ </header>

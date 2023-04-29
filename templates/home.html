@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+<div class="nk-hero py-7 py-lg-11">
+    <div class="container">
+       <div class="row align-items-center justify-content-center justify-content-lg-between flex-lg-row-reverse g-gs">
+          <div class="col-sm-10 col-md-7 col-lg-6">
+             <div class="nk-hero-gfx px-2 px-sm-0 ps-lg-5 ps-xxl-0"><img class="w-100" src="{% static 'images/gfx/banner/b.png' %}" alt=""></div>
+          </div>
+          <div class="col-md-11 col-lg-6 col-xxl-6">
+             <div class="nk-hero-content text-center text-lg-start">
+                <h1 class="title display-6 mb-3 mb-lg-4">Get high quality meeting transcription fast <span class="text-gradient-primary">with AI</span></h1>
+                <p class="lead mb-4 mb-lg-5 pe-xxl-6">AI meeting transcription that helps you transcribe and summarize meeting using voice recognition engine.</p>
+                <ul class="btn-list btn-list-inline gx-4 gy-4">
+                   <li><a href="#" class="btn btn-lg rounded-pill btn-primary"><em class="icon ni ni-google"></em><span>Sign up with Google</span></a></li>
+                   <li><a href="#" class="btn btn-lg rounded-pill btn-secondary"><span>Sign up with email</span> <em class="icon ni ni-arrow-long-right"></em></a></li>
+                </ul>
+                <p class="mt-4"><span class="text-primary">*100% free </span> to get started. No credit card required.</p>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+
+
+
+{% endblock %}

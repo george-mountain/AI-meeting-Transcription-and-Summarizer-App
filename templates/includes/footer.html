@@ -1,0 +1,109 @@
+{% load static %}
+
+<footer class="nk-footer">
+    <div class="section section-sm section-top-0">
+       <div class="container">
+          <div class="row g-5">
+             <div class="col-xl-4 col-lg-7 col-md-9 me-auto">
+                <div class="block-text pe-xxl-5">
+                   <a href="#" class="logo-link mb-4">
+                      <div class="logo-wrap"><img class="logo-img logo-dark" src="#" srcset="#" alt=""></div>
+                   </a>
+                   <p>RutiTrans is an artificial intelligence app to automate meeting transcription, summarization and description, using voice recognition engine.</p>
+                </div>
+             </div>
+             <div class="col-xl">
+                <div class="row g-gs">
+                   <div class="col-lg-4 col-sm-4 col-6">
+                      <div class="wgs">
+                         <h6 class="wgs-title overline-title text-heading">Company</h6>
+                         <ul class="list gy-2 list-link-base">
+                            <li><a class="link-base" href="#">About Us</a></li>
+                            <li><a class="link-base" href="#">Services</a></li>
+                            <li><a class="link-base" href="#">Community</a></li>
+                         </ul>
+                      </div>
+                   </div>
+                   <div class="col-lg-4 col-sm-4 col-6">
+                      <div class="wgs">
+                         <h6 class="wgs-title overline-title text-heading">Use Case</h6>
+                         <ul class="list gy-2 list-link-base">
+                            <li><a class="link-base" href="#">Meeting Transcription</a></li>
+                            <li><a class="link-base" href="#">Meeting Summarizer</a></li>
+                            <li><a class="link-base" href="#">Meeting Descriptions</a></li>
+                            <li><a class="link-base" href="#">Video & Audio Meetings Transcription</a></li>
+                         </ul>
+                      </div>
+                   </div>
+                
+                   <div class="col-lg-4 col-md-5 col-sm-6">
+                      <div class="wgs">
+                         <h6 class="wgs-title overline-title text-heading">Get In Touch</h6>
+                         <ul class="list gy-3">
+                            <li><em class="icon text-primary fs-5 ni ni-mail-fill"></em> <span>contact@rutitrans.com</span></li>
+                            <li><em class="icon text-primary fs-5 ni ni-map-pin-fill"></em> <span>Japan</span></li>
+                         </ul>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <div class="section section-0">
+       <hr class="border-opacity-25 border-primary m-0">
+       <div class="container">
+          <div class="py-4">
+             <div class="row">
+                <div class="col-md">
+                   <p class="mb-2 mb-md-0">Copyright &copy; 2023. Application Made by <a href="#" class="fw-bold text-base">George Ugwu</a>.</p>
+                </div>
+                <div class="col-md">
+                   <ul class="list list-row gx-4 justify-content-start justify-content-md-end">
+                      <li><a href="#" class="link-primary">Terms</a></li>
+                      <li><a href="#" class="link-primary">Privacy Policy</a></li>
+                   </ul>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </footer>
+</div>
+<script src="{% static 'js/jquery-3.4.1.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}" ></script>
+
+<script src="{% static 'js/bundlede0c.js' %}"></script>
+
+
+<!-- DataTable scripts -->
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+
+</body>
+
+<script>
+    $(document).ready(function() {
+    $('#resultTable').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copyHtml5',
+            'pdfHtml5',
+            'csvHtml5',
+            'excelHtml5',
+            'print'
+        ]
+    } );
+} );
+  </script>
+
+
+
+</html>

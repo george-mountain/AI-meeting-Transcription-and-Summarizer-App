@@ -1,0 +1,197 @@
+{% extends 'base.html'%}
+
+{% load static %}
+{% block content %}
+
+<style>
+    /* Define the style for the loading text */
+    #loading-text {
+      font-weight: bold;
+      color: red;
+      animation: blink 1s infinite;
+    }
+    
+    /* Define the blinking animation */
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+  </style>
+
+<main class="nk-pages">
+    <section class="section section-bottom-0 has-shape has-mask">
+       <div class="nk-shape bg-shape-blur-m mt-8 start-50 top-0 translate-middle-x"></div>
+       <div class="nk-mask bg-pattern-dot bg-blend-around mt-n5 mb-10p mh-50vh"></div>
+       <div class="container">
+          <div class="section-head">
+             <div class="row justify-content-center text-center">
+                <div class="col-lg-11 col-xl-10 col-xxl-9">
+                   <h6 class="overline-title text-primary">Summarize Meeting </h6>
+                   
+                </div>
+             </div>
+          </div>
+          <div class="section-content">
+             <div class="row g-gs justify-content-center justify-content-lg-between">
+                <div class="col-xl-5 col-lg-6 col-md-8 text-lg-start text-center">
+                    
+                   <div class="block-text pt-lg-4">
+                    {% if result %}
+                      <h3 class="title h2">Summarization Result!</h3>
+                      <hr>
+                      <div class="d-flex">
+                        <div class="block-typo">
+                      
+                            <table id="resultTable">
+                                <thead>
+                                  <tr>
+                                    <th>{{ meeting_title }} (Summary)</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>{{ result }}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                      </div>
+                      </div>
+                      
+
+                      
+
+                      {% else %}
+
+                      <h3 class="title h2">Let's Summarize Your Meeting!</h3>
+                      <p>Upload your meeting recording video or audio. Get an instant summary of the meeting.</p>
+                      <ul class="row gy-4 pt-4">
+                         <li class="col-12">
+                            <h5>Meeting Transcription</h5>
+                            <div class="d-flex flex-column flex-lg-row align-items-center justify-content-center justify-content-lg-start"><em class="icon ni ni-check-circle-fill text-success"></em><span> Instant meeting transcription</span></div>
+                         </li>
+                         <li class="col-12">
+                            <h5>Meeting Summarizer</h5>
+                            <div class="d-flex flex-column flex-lg-row align-items-center justify-content-center justify-content-lg-start"><em class="icon ni ni-check-circle-fill text-success"></em><span> automatically summarize your meeting</span></div>
+                         </li>
+                         <li class="col-12">
+                            <h5>Multimedia Compatibility</h5>
+                            <div class="d-flex flex-column flex-lg-row align-items-center justify-content-center justify-content-lg-start"><em class="icon ni ni-check-circle-fill text-success"></em><span> Compatible with video and audio records.</span></div>
+                         </li>
+                      </ul>
+
+                      {% endif %}
+
+                   </div>
+                </div>
+                <div class="col-lg-6">
+                   <div class="card border-0 shadow-sm rounded-4">
+                      <div class="card-body">
+                         <h3 class="title fw-medium mb-4">Upload your meeting record and summarize</h3>
+                         <form data-action="{% url 'summarizer' %}" method="POST" enctype ='multipart/form-data' class="form-submit-init" onsubmit="showLoadingText()">
+                            {% csrf_token %}
+
+                            <div class="row g-4">
+                              
+                               <div class="col-12">
+                                <p id="loading-text" style="display:none">Please wait, the result will be displayed soon</p>
+                                  <div class="form-group">
+                                     <div class="form-control-wrap">{{ form.meeting_title }}</div>
+                                  </div>
+                               </div>
+
+                               <div class="col-12">
+                                <div class="form-group">
+                                   <div class="form-control-wrap">{{ form.input_file }}</div>
+                                </div>
+                             </div>
+
+                             <div class="col-12">
+                                <p id="loading-text" style="display:none">Please wait, the result will be displayed soon</p>
+                                  <div class="form-group">
+                                     <div class="form-control-wrap">{{ form.user_prompt }}</div>
+                                  </div>
+                               </div>
+                               
+                               <div class="col-12">
+                                  <button type="submit" class="btn btn-primary btn-sm active " onclick="MyCustomFunction()" id="submit" data-loading-text="<i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i> Wait, Transcription in progress...">Summarize </button>
+                                  <div class="form-result mt-4"></div>
+                               </div>
+
+                               <ul class="errorlist">
+                                {% for field in form %}
+                                {% if field.errors %}
+                      
+                                {% for error in field.errors %}
+                      
+                                <li style="color: red;">{{error}}</li>
+                      
+                                {% endfor %}
+                      
+                                {% endif %}
+                      
+                                {% endfor %}
+                              </ul>
+                            </div>
+                         </form>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>
+
+    <section class="section section-bottom-2">
+        <div class="container">
+           <div class="section-wrap bg-primary bg-opacity-10 rounded-4">
+              <div class="section-content bg-pattern-dot-sm p-4 p-sm-6">
+                 <div class="row justify-content-center text-center">
+                    <div class="col-xl-8 col-xxl-9">
+                       <div class="block-text">
+                          <h6 class="overline-title text-primary">Boost your productivity</h6>
+                          <h2 class="title">Effective Meeting Transcription App</h2>
+                          <p class="lead mt-3">Transcribing and summarizing meeting easily.</p>
+                          <ul class="btn-list btn-list-inline">
+                             <li><a href="#" class="btn btn-lg btn-primary"><span>Start Transcribing for free</span><em class="icon ni ni-arrow-long-right"></em></a></li>
+                          </ul>
+                          <ul class="list list-row gy-0 gx-3">
+                             <li><em class="icon ni ni-check-circle-fill text-success"></em><span>No credit card required</span></li>
+                             <li><em class="icon ni ni-check-circle-fill text-success"></em><span>Cancel anytime</span></li>
+                             <li><em class="icon ni ni-check-circle-fill text-success"></em><span>Other AI tools</span></li>
+                          </ul>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </section>
+    
+ </main>
+
+ <script>
+    function MyCustomFunction(){
+        $("#submit").html("<i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i>   Wait, transcription in progress...");
+        $(this).submit('Please wait, transcription in progress...').delay(1000).queue(function () {
+            $(this).button('reset');
+        });
+    }
+    
+  </script>
+
+  <script>
+    window.onload = function() {
+      var loadingText = document.getElementById('loading-text');
+      loadingText.style.display = 'none'; // hide the loading text
+    }
+
+    function showLoadingText() {
+      var loadingText = document.getElementById('loading-text');
+      loadingText.style.display = 'block'; // show the loading text
+    }
+  </script>
+
+
+
+{% endblock %}
