@@ -19,19 +19,15 @@
                    <li class="nk-menu-item"><a href="{% url 'summarizer' %}" class="nk-menu-link"><span class="nk-menu-text">Meeting Summarizer</span></a></li>
                 </ul>
                 <ul class="nk-menu-buttons flex-lg-row-reverse">
-                   <li><a href="#" class="btn btn-primary">Get Started</a></li>
-                   <li class="dropdown">
-                      <a class="link link-base fw-medium dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-offset="0, 12"> English (US) </a>
-                      <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
-                         <li><a class="dropdown-item link-base py-2 px-4" href="#">Japanese (JP)</a></li>
-                         <li><a class="dropdown-item link-base py-2 px-4" href="#">Chinese (ZS)</a></li>
-                         
-                      </ul>
-                   </li>
+                   
+                   <button onclick="toggleLanguage()" class="trans_button btn btn-primary" > EN/JP  <i class="fa fa-globe fa-1.5x" style="color:#ffffff; padding:5px;"></i></button>
+                   <li class="nk-menu-item"><a href="https://george-mountain.github.io/" class="nk-menu-link" target="_blank"><span class="nk-menu-text">About Us</span></a></li>
+                  
                 </ul>
              </nav>
           </div>
        </div>
     </div>
-
+<!-- lang -->
+<div id="google_translate_element" style="display:none;"></div>
  </header>
