@@ -42,7 +42,7 @@ def transcription(request):
     else:
         form = ImageUploadForm()
        
-        print('It did not enter request loop')
+        # print('It did not enter request loop')
        
     
     
@@ -87,7 +87,7 @@ def summarizer(request):
     else:
         form = SummarizerForm()
        
-        print('It did not enter request loop')
+        # print('It did not enter request loop')
        
     
     
