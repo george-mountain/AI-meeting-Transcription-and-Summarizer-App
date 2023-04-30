@@ -7,12 +7,52 @@ from .utils import convert_video_to_audio, transcribe_audio_to_text, generate_mo
 from tempfile import NamedTemporaryFile
 
 
-# def transcription(request):
-    
-    
-#     return render(request,'transcription/result.html')
-
 # Create your views here.
+
+# def transcription(request):
+#     result = {}
+#     filename = ''
+#     meeting_title = ''
+    
+#     if request.method == 'POST':
+        
+#         form = ImageUploadForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             cd = form.cleaned_data
+#             upload_file = cd['input_file']
+#             meeting_title = cd['meeting_title']
+#             filename = str(upload_file.name)
+#             print(filename)
+#             print('wait... processing about to start')
+#             with NamedTemporaryFile(suffix='.mp4') as video_file:
+#                 video_file.write(upload_file.read())
+#                 video_file.flush()
+#                 audio_file = convert_video_to_audio(upload_file)
+#                 result = transcribe_audio_to_text(audio_file)
+            
+#         else:
+#             print("Invalid form field")
+#             print(form.errors)
+        
+#     else:
+#         form = ImageUploadForm()
+       
+#         # print('It did not enter request loop')
+       
+    
+    
+#     context = {
+#         'form': form,
+#         'result':result,
+#         'filename':filename,
+#         'meeting_title':meeting_title,
+#     }
+    
+    
+#     return render(request,'transcription/result.html',context)
+
+
+# from django.core.exceptions import ValidationError
 
 def transcription(request):
     result = {}
@@ -32,8 +72,14 @@ def transcription(request):
             with NamedTemporaryFile(suffix='.mp4') as video_file:
                 video_file.write(upload_file.read())
                 video_file.flush()
-                audio_file = convert_video_to_audio(upload_file)
-                result = transcribe_audio_to_text(audio_file)
+                
+                try:
+                    audio_file = convert_video_to_audio(upload_file)
+                    result = transcribe_audio_to_text(audio_file)
+                
+                except Exception as e:
+                    print(f"Error occurred: {str(e)}")
+                    result = "An error occurred while transcribing the file. Check the uploaded file and try again..."
             
         else:
             print("Invalid form field")
@@ -43,18 +89,16 @@ def transcription(request):
         form = ImageUploadForm()
        
         # print('It did not enter request loop')
-       
-    
     
     context = {
         'form': form,
-        'result':result,
-        'filename':filename,
-        'meeting_title':meeting_title,
+        'result': result,
+        'filename': filename,
+        'meeting_title': meeting_title,
     }
     
-    
-    return render(request,'transcription/result.html',context)
+    return render(request, 'transcription/result.html', context)
+
 
 
 def summarizer(request):
