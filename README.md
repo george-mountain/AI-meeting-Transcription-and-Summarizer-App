@@ -1,4 +1,4 @@
-# AI Meeting Transcription and Summarizer App
+# AI Meeting Transcription and Summarizer App -- Developed by George Ugwu
 
 Transform your meeting productivity with our cutting-edge AI application! Say goodbye to the tedious task of manually transcribing and summarizing your meeting notes. 
 Our web-based tool leverages the power of voice recognition technology to seamlessly transcribe and summarize meetings for you.
