@@ -13,16 +13,18 @@
              <div class="nk-header-toggle"><button class="btn btn-light btn-icon header-menu-toggle"><em class="icon ni ni-menu"></em></button></div>
              <nav class="nk-header-menu nk-menu">
                 <ul class="nk-menu-list mx-auto">
-                  
+
                    <li class="nk-menu-item"><a href="{% url 'home' %}" class="nk-menu-link"><span class="nk-menu-text">Home</span></a></li>
                    <li class="nk-menu-item"><a href="{% url 'transcription' %}" class="nk-menu-link"><span class="nk-menu-text">Transcription</span></a></li>
                    <li class="nk-menu-item"><a href="{% url 'summarizer' %}" class="nk-menu-link"><span class="nk-menu-text">Meeting Summarizer</span></a></li>
+
+                   <li class="nk-menu-item"><a href="{% url 'realtime' %}" class="nk-menu-link"><span class="nk-menu-text">Real Time Transcription</span></a></li>
                 </ul>
                 <ul class="nk-menu-buttons flex-lg-row-reverse">
-                   
+
                    <button onclick="toggleLanguage()" class="trans_button btn btn-primary" > EN/JP  <i class="fa fa-globe fa-1.5x" style="color:#ffffff; padding:5px;"></i></button>
                    <li class="nk-menu-item"><a href="https://george-mountain.github.io/" class="nk-menu-link" target="_blank"><span class="nk-menu-text">About Us</span></a></li>
-                  
+
                 </ul>
              </nav>
           </div>

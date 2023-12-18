@@ -4,6 +4,7 @@ from .import views
 urlpatterns = [
     path('',views.transcription, name='transcription'),
     path('summarizer/',views.summarizer, name='summarizer'),
+    path('realtime/',views.realtime, name='realtime'),
 
-    
+
 ]

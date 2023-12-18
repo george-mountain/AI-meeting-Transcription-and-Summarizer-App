@@ -1,0 +1,304 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+<style>
+    /* Define the style for the loading text */
+    #loading-text {
+        font-weight: bold;
+        color: red;
+        animation: blink 1s infinite;
+    }
+
+    /* Define the blinking animation */
+    @keyframes blink {
+        50% {
+            opacity: 0;
+        }
+    }
+
+    /* Additional styles for microphone and output box */
+    #microphoneButton {
+        font-size: 24px;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    #outputBox {
+        margin-top: 20px;
+        padding: 10px;
+        border: 2px solid #3498db;
+        border-radius: 5px;
+        width: 90%;
+        height: 350px;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        word-wrap: break-word;
+        white-space: pre-line;
+        overflow-y: auto;
+        max-height: 1000px;
+    }
+
+    #statusMessage {
+        color: #3498db;
+        font-weight: bold;
+        margin-top: 10px;
+        font-size: 12px;
+    }
+</style>
+
+<main class="nk-pages">
+    <section class="section section-bottom-0 has-shape has-mask">
+        <div class="nk-shape bg-shape-blur-m mt-8 start-50 top-0 translate-middle-x"></div>
+        <div class="nk-mask bg-pattern-dot bg-blend-around mt-n5 mb-10p mh-50vh"></div>
+        <div class="container">
+            <div class="section-head">
+                <div class="row justify-content-center text-center">
+                    <div class="col-lg-11 col-xl-10 col-xxl-9">
+                        <h6 class="overline-title text-primary">Transcribe Speech - Realtime </h6>
+                    </div>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="row g-gs justify-content-center justify-content-lg-between">
+                    <div class="col-xl-5 col-lg-6 col-md-8 text-lg-start text-center">
+                        <div class="block-text pt-lg-4">
+                            {% if result %}
+                                <h3 class="title h2">Transcription Result!</h3>
+                                <hr>
+                                <div class="d-flex">
+                                    <div class="block-typo">
+                                        <table id="resultTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{ meeting_title }}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>{{ result }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <h3 class="title h2">Let's Transcribe Your Speech!</h3>
+                                <p>Click on the microphone icon and speak. Get an instant transcription of your speech
+                                    or records.</p>
+                                <ul class="row gy-4 pt-4">
+                                    <li class="col-12">
+                                        <h5>Speech Transcription</h5>
+                                        <div
+                                            class="d-flex flex-column flex-lg-row align-items-center justify-content-center justify-content-lg-start">
+                                            <em class="icon ni ni-check-circle-fill text-success"></em><span> Instant
+                                                voice transcription</span>
+                                        </div>
+                                    </li>
+                                    <li class="col-12">
+                                        <h5>Real Time Voice Recognition</h5>
+                                        <div
+                                            class="d-flex flex-column flex-lg-row align-items-center justify-content-center justify-content-lg-start">
+                                            <em class="icon ni ni-check-circle-fill text-success"></em><span>
+                                                automatically transcribe your speech on realtime</span>
+                                        </div>
+                                    </li>
+                                    <li class="col-12">
+                                        <h5>Multimedia Compatibility</h5>
+                                        <div
+                                            class="d-flex flex-column flex-lg-row align-items-center justify-content-center justify-content-lg-start">
+                                            <em class="icon ni ni-check-circle-fill text-success"></em><span>
+                                                Compatible with all browsers and microphones.</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card border-0 shadow-sm rounded-4">
+                            <div class="card-body">
+                                <h3 class="title fw-medium mb-4">Speak and transcribe</h3>
+
+                                <!-- microphone button and output box for transcription -->
+                                <div id="outputBox" class="form-control" contenteditable="true"></div>
+
+                                <span id="statusMessage"></span>
+                                <br>
+                                <button id="microphoneButton" class="btn btn-primary rounded-circle">
+                                    <span class="sr-only">Start Recognition</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 384 512"><path
+                                            d="M192 0C139 0 96 43 96 96V256c0 53 43 96 96 96s96-43 96-96V96c0-53-43-96-96-96zM64 216c0-13.3-10.7-24-24-24s-24 10.7-24 24v40c0 89.1 66.2 162.7 152 174.4V464H120c-13.3 0-24 10.7-24 24s10.7 24 24 24h72 72c13.3 0 24-10.7 24-24s-10.7-24-24-24H216V430.4c85.8-11.7 152-85.3 152-174.4V216c0-13.3-10.7-24-24-24s-24 10.7-24 24v40c0 70.7-57.3 128-128 128s-128-57.3-128-128V216z" />
+                                    </svg>
+                                </button>
+
+                                <!-- buttons for copying and downloading transcripts -->
+                                <div class="mt-3">
+                                    <button class="btn btn-success" onclick="copyTranscript()">Copy Transcripts</button>
+                                    <button class="btn btn-primary" onclick="downloadPDF()">Download PDF</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-bottom-2">
+        <div class="container">
+            <div class="section-wrap bg-primary bg-opacity-10 rounded-4">
+                <div class="section-content bg-pattern-dot-sm p-4 p-sm-6">
+                    <div class="row justify-content-center text-center">
+                        <div class="col-xl-8 col-xxl-9">
+                            <div class="block-text">
+                                <h6 class="overline-title text-primary">Boost your productivity</h6>
+                                <h2 class="title">Effective Meeting Transcription App</h2>
+                                <p class="lead mt-3">Transcribing and summarizing meeting easily.</p>
+                                <ul class="btn-list btn-list-inline">
+                                    <li><a href="#"
+                                            class="btn btn-lg btn-primary"><span>Start Transcribing for
+                                                free</span><em
+                                                class="icon ni ni-arrow-long-right"></em></a></li>
+                                </ul>
+                                <ul class="list list-row gy-0 gx-3">
+                                    <li><em class="icon ni ni-check-circle-fill text-success"></em><span>No credit
+                                            card required</span></li>
+                                    <li><em class="icon ni ni-check-circle-fill text-success"></em><span>Cancel
+                                            anytime</span></li>
+                                    <li><em class="icon ni ni-check-circle-fill text-success"></em><span>Other AI
+                                            tools</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script>
+    function MyCustomFunction() {
+        $("#submit").html("<i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i>   Wait, transcription in progress...");
+        $(this).submit('Please wait, transcription in progress...').delay(1000).queue(function () {
+            $(this).button('reset');
+        });
+    }
+
+</script>
+
+<script>
+    window.onload = function () {
+        var loadingText = document.getElementById('loading-text');
+        loadingText.style.display = 'none'; // hide the loading text
+    }
+
+    function showLoadingText() {
+        var loadingText = document.getElementById('loading-text');
+        loadingText.style.display = 'block'; // show the loading text
+    }
+</script>
+
+<!-- JavaScript for speech recognition -->
+<script src="https://rawgit.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const microphoneButton = document.getElementById('microphoneButton');
+        const outputBox = document.getElementById('outputBox');
+        const statusMessage = document.getElementById('statusMessage');
+        let recognition;
+        let recognitionActive = false;
+
+        if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+            recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+            recognition.lang = 'ja-JP';
+            recognition.continuous = true;
+            recognition.interimResults = true;
+
+            recognition.onstart = () => {
+                statusMessage.innerText = 'Speech recognition started';
+                setTimeout(() => {
+                    statusMessage.innerText = '';
+                }, 1000); // Flash message for 1 second
+            };
+
+            recognition.onresult = (event) => {
+                let interimTranscript = '';
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        outputBox.innerHTML += event.results[i][0].transcript + ' ';
+                    } else {
+                        interimTranscript += event.results[i][0].transcript;
+                    }
+                }
+                console.log('Interim:', interimTranscript);
+            };
+
+            recognition.onend = () => {
+                statusMessage.innerText = 'Speech recognition ended';
+                setTimeout(() => {
+                    statusMessage.innerText = '';
+                }, 1000); // Flash message for 1 second
+                recognitionActive = false;
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+            };
+
+            // Toggle recognition on button click
+            microphoneButton.addEventListener('click', toggleRecognition);
+        } else {
+            console.error('SpeechRecognition not supported in this browser');
+        }
+
+        function toggleRecognition() {
+            if (recognition && !recognitionActive) {
+                outputBox.innerHTML = ''; // Clear previous content
+                recognition.start();
+                recognitionActive = true;
+            } else if (recognition && recognitionActive) {
+                recognition.stop();
+                //outputBox.innerHTML = '';
+                recognitionActive = false;
+            } else {
+                console.error('SpeechRecognition not supported in this browser');
+            }
+        }
+    });
+
+    // Function to copy transcripts to clipboard
+    function copyTranscript() {
+        const textToCopy = document.getElementById('outputBox').innerText;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            alert('Transcripts copied to clipboard!');
+        }).catch((error) => {
+            console.error('Error copying transcripts:', error);
+        });
+    }
+
+
+    // Function to download transcripts as PDF
+    function downloadPDF() {
+        const outputBox = document.getElementById('outputBox').innerHTML;
+        const pdfOptions = { margin: 10, filename: 'transcripts.pdf' };
+
+        // Use html2pdf library to generate PDF from the output box content
+        html2pdf(outputBox, pdfOptions)
+            .then(() => {
+                alert('PDF download complete!');
+            })
+            .catch((error) => {
+                console.error('Error generating PDF:', error);
+            });
+    }
+</script>
+
+
+
+{% endblock %}
